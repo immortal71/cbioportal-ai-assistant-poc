@@ -1,0 +1,22 @@
+{
+  "simple_queries": [
+    "TP53 mutations in breast cancer",
+    "EGFR in lung cancer",
+    "BRCA1 mutations"
+  ],
+  "medium_queries": [
+    "TP53 and BRCA1 co-mutations in ovarian cancer",
+    "KRAS mutation frequency in colorectal cancer",
+    "PIK3CA alterations in hormone receptor positive breast cancer"
+  ],
+  "complex_queries": [
+    "What are the most common mutations in HER2-positive breast cancer?",
+    "Show me all TP53, BRCA1, and BRCA2 mutations across all cancer types",
+    "I want to see KRAS G12C mutations in lung adenocarcinoma"
+  ],
+  "edge_cases": [
+    "TP53",
+    "TP53 mutaions",
+    "breast cancer"
+  ]
+}

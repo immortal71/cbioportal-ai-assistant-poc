@@ -13,6 +13,17 @@ import httpx
 from typing import Optional, List, Dict, Any
 import asyncio
 
+# LLM Integration
+try:
+    from llm_parser import LLMQueryParser
+    from config import Config
+    LLM_AVAILABLE = True
+    parser = LLMQueryParser()
+except ImportError as e:
+    LLM_AVAILABLE = False
+    parser = None
+    print(f"[WARNING] LLM parser not available: {e}")
+
 __author__ = "Aashish Kharel"
 __version__ = "0.1.0"
 __project__ = "cBioPortal AI Assistant PoC - GSoC 2026"
@@ -40,9 +51,14 @@ app.add_middleware(
 CBIOPORTAL_API_URL = "https://www.cbioportal.org/api"
 CBIOPORTAL_TIMEOUT = 30.0  # seconds
 
-# cBioPortal API Configuration
-CBIOPORTAL_API_URL = "https://www.cbioportal.org/api"
-CBIOPORTAL_TIMEOUT = 30.0  # seconds
+# Shared HTTP client with increased connection limits
+http_client = httpx.AsyncClient(
+    limits=httpx.Limits(
+        max_connections=100,
+        max_keepalive_connections=20
+    ),
+    timeout=CBIOPORTAL_TIMEOUT
+)
 
 
 class QueryRequest(BaseModel):
@@ -55,14 +71,13 @@ class QueryRequest(BaseModel):
 
 async def get_studies() -> List[Dict]:
     """Fetch available studies from cBioPortal."""
-    async with httpx.AsyncClient(timeout=CBIOPORTAL_TIMEOUT) as client:
-        try:
-            response = await client.get(f"{CBIOPORTAL_API_URL}/studies")
-            response.raise_for_status()
-            return response.json()
-        except Exception as e:
-            print(f"Error fetching studies: {e}")
-            return []
+    try:
+        response = await http_client.get(f"{CBIOPORTAL_API_URL}/studies")
+        response.raise_for_status()
+        return response.json()
+    except Exception as e:
+        print(f"Error fetching studies: {e}")
+        return []
 
 
 async def get_gene_mutations(gene_symbol: str, study_id: str = "msk_impact_2017") -> Dict[str, Any]:
@@ -76,101 +91,98 @@ async def get_gene_mutations(gene_symbol: str, study_id: str = "msk_impact_2017"
     Returns:
         Dictionary containing mutation data
     """
-    async with httpx.AsyncClient(timeout=CBIOPORTAL_TIMEOUT) as client:
-        try:
-            # Get Entrez Gene ID
-            entrez_id = await get_gene_entrez_id(gene_symbol)
-            if not entrez_id:
-                return {"error": f"Could not find Entrez ID for gene {gene_symbol}"}
-            
-            # Construct molecular profile ID and sample list ID
-            mutation_profile_id = f"{study_id}_mutations"
-            sample_list_id = f"{study_id}_all"
-            
-            # Build the mutations fetch URL
-            mutations_url = f"{CBIOPORTAL_API_URL}/molecular-profiles/{mutation_profile_id}/mutations/fetch"
-            
-            # Request body with correct format
-            request_body = {
-                "sampleListId": sample_list_id,
-                "entrezGeneIds": [entrez_id]
-            }
-            
-            # POST request to fetch mutations
-            mutations_response = await client.post(
-                mutations_url,
-                json=request_body,
-                headers={"Content-Type": "application/json"}
-            )
-            
-            if mutations_response.status_code != 200:
-                return {"error": f"API returned status {mutations_response.status_code}"}
-            
-            mutations = mutations_response.json()
-            
-            if not mutations or len(mutations) == 0:
-                return {"error": f"No mutations found for {gene_symbol} in study {study_id}"}
-            
-            return {
-                "gene": gene_symbol,
-                "study_id": study_id,
-                "mutations": mutations[:30],  # Limit to first 30 for display
-                "total_count": len(mutations)
-            }
-            
-        except httpx.HTTPStatusError as e:
-            print(f"HTTP Error fetching mutations: {e}")
-            return {"error": f"API error: {e.response.status_code}"}
-        except Exception as e:
-            print(f"Error fetching mutations: {e}")
-            return {"error": str(e)}
+    try:
+        # Get Entrez Gene ID
+        entrez_id = await get_gene_entrez_id(gene_symbol)
+        if not entrez_id:
+            return {"error": f"Could not find Entrez ID for gene {gene_symbol}"}
+        
+        # Construct molecular profile ID and sample list ID
+        mutation_profile_id = f"{study_id}_mutations"
+        sample_list_id = f"{study_id}_all"
+        
+        # Build the mutations fetch URL
+        mutations_url = f"{CBIOPORTAL_API_URL}/molecular-profiles/{mutation_profile_id}/mutations/fetch"
+        
+        # Request body with correct format
+        request_body = {
+            "sampleListId": sample_list_id,
+            "entrezGeneIds": [entrez_id]
+        }
+        
+        # POST request to fetch mutations
+        mutations_response = await http_client.post(
+            mutations_url,
+            json=request_body,
+            headers={"Content-Type": "application/json"}
+        )
+        
+        if mutations_response.status_code != 200:
+            return {"error": f"API returned status {mutations_response.status_code}"}
+        
+        mutations = mutations_response.json()
+        
+        if not mutations or len(mutations) == 0:
+            return {"error": f"No mutations found for {gene_symbol} in study {study_id}"}
+        
+        return {
+            "gene": gene_symbol,
+            "study_id": study_id,
+            "mutations": mutations[:30],  # Limit to first 30 for display
+            "total_count": len(mutations)
+        }
+        
+    except httpx.HTTPStatusError as e:
+        print(f"HTTP Error fetching mutations: {e}")
+        return {"error": f"API error: {e.response.status_code}"}
+    except Exception as e:
+        print(f"Error fetching mutations: {e}")
+        return {"error": str(e)}
 
 
 async def get_gene_entrez_id(gene_symbol: str) -> Optional[int]:
     """Get Entrez Gene ID for a gene symbol."""
-    async with httpx.AsyncClient(timeout=CBIOPORTAL_TIMEOUT) as client:
-        try:
-            response = await client.get(f"{CBIOPORTAL_API_URL}/genes/{gene_symbol}")
-            response.raise_for_status()
-            gene_data = response.json()
-            return gene_data.get('entrezGeneId')
-        except Exception as e:
-            print(f"Error fetching gene ID for {gene_symbol}: {e}")
-            # Fallback to common gene IDs
-            gene_id_map = {
-                'TP53': 7157,
-                'BRCA1': 672,
-                'BRCA2': 675,
-                'EGFR': 1956,
-                'KRAS': 3845,
-                'PIK3CA': 5290,
-                'PTEN': 5728
-            }
-            return gene_id_map.get(gene_symbol.upper())
+    try:
+        response = await http_client.get(f"{CBIOPORTAL_API_URL}/genes/{gene_symbol}")
+        response.raise_for_status()
+        gene_data = response.json()
+        return gene_data.get('entrezGeneId')
+    except Exception as e:
+        print(f"Error fetching gene ID for {gene_symbol}: {e}")
+        # Fallback to common gene IDs
+        gene_id_map = {
+            'TP53': 7157,
+            'BRCA1': 672,
+            'BRCA2': 675,
+            'EGFR': 1956,
+            'KRAS': 3845,
+            'PIK3CA': 5290,
+            'PTEN': 5728
+        }
+        return gene_id_map.get(gene_symbol.upper())
 
 
 async def search_studies_by_cancer_type(cancer_type: str) -> List[Dict]:
     """Search for studies by cancer type."""
-    async with httpx.AsyncClient(timeout=CBIOPORTAL_TIMEOUT) as client:
-        try:
-            response = await client.get(f"{CBIOPORTAL_API_URL}/studies")
-            response.raise_for_status()
-            studies = response.json()
-            
-            # Filter studies by cancer type
-            cancer_type_lower = cancer_type.lower()
-            matching_studies = [
-                s for s in studies 
-                if cancer_type_lower in s.get('name', '').lower() 
-                or cancer_type_lower in s.get('description', '').lower()
-                or cancer_type_lower in s.get('cancerTypeId', '').lower()
-            ]
-            
-            return matching_studies[:10]  # Return top 10 matches
-            
-        except Exception as e:
-            print(f"Error searching studies: {e}")
-            return []
+    try:
+        response = await http_client.get(f"{CBIOPORTAL_API_URL}/studies")
+        response.raise_for_status()
+        studies = response.json()
+        
+        # Filter studies by cancer type
+        cancer_type_lower = cancer_type.lower()
+        matching_studies = [
+            s for s in studies 
+            if cancer_type_lower in s.get('name', '').lower() 
+            or cancer_type_lower in s.get('description', '').lower()
+            or cancer_type_lower in s.get('cancerTypeId', '').lower()
+        ]
+        
+        return matching_studies[:10]  # Return top 10 matches
+        
+    except Exception as e:
+        print(f"Error searching studies: {e}")
+        return []
 
 
 
@@ -214,9 +226,48 @@ SAMPLE_DATA = {
 
 def parse_query(text: str) -> dict:
     """
-    Enhanced query parser - extracts gene names and cancer types.
-    In a real implementation, this would use LLM/NLP.
+    Enhanced query parser - uses LLM first, falls back to pattern matching.
     """
+    # Input validation - reject empty or whitespace-only queries
+    if not text or not text.strip():
+        return {
+            "query_type": "unknown",
+            "status": "error",
+            "message": "Query cannot be empty",
+            "llm_used": False,
+            "confidence": 0
+        }
+    
+    # Try LLM first if available
+    if LLM_AVAILABLE and parser and parser.client:
+        try:
+            llm_result = parser.parse_query(text)
+            
+            # Use LLM result if confidence is sufficient (>= 3 out of 10)
+            if llm_result and llm_result.get('confidence', 0) >= 3:
+                # Convert LLM result to our API format
+                detected_gene = llm_result['genes'][0] if llm_result.get('genes') else None
+                detected_cancer_type = llm_result['cancer_types'][0] if llm_result.get('cancer_types') else None
+                
+                result = {
+                    "query_type": llm_result.get('query_type', 'gene_mutations'),
+                    "status": "success" if detected_gene else "not_found",
+                    "llm_used": True,
+                    "confidence": llm_result.get('confidence', 0)
+                }
+                
+                if detected_gene:
+                    result["gene"] = detected_gene
+                if detected_cancer_type:
+                    result["cancer_type"] = detected_cancer_type
+                if not detected_gene:
+                    result["message"] = "Gene not recognized. Try: TP53, BRCA1, EGFR, KRAS, etc."
+                
+                return result
+        except Exception as e:
+            print(f"[WARNING] LLM parsing failed, falling back to pattern matching: {e}")
+    
+    # Fallback to pattern matching
     text_lower = text.lower()
     
     # Common gene symbols to detect
@@ -253,7 +304,9 @@ def parse_query(text: str) -> dict:
         result = {
             "query_type": "gene_mutations",
             "gene": detected_gene,
-            "status": "success"
+            "status": "success",
+            "llm_used": False,
+            "confidence": 0
         }
         if detected_cancer_type:
             result["cancer_type"] = detected_cancer_type
@@ -262,7 +315,9 @@ def parse_query(text: str) -> dict:
     return {
         "query_type": "unknown",
         "status": "not_found",
-        "message": "Gene not recognized. Try: TP53, BRCA1, EGFR, KRAS, etc."
+        "message": "Gene not recognized. Try: TP53, BRCA1, EGFR, KRAS, etc.",
+        "llm_used": False,
+        "confidence": 0
     }
 
 

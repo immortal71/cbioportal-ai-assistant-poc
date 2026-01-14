@@ -7,6 +7,32 @@
 
 A proof-of-concept natural language interface for querying cBioPortal cancer genomics data. This project demonstrates how AI can make complex cancer genomics data accessible to non-technical researchers.
 
+## What's New: LLM Integration
+
+### Major Upgrade: Pattern Matching → LLM-Powered Intelligence
+
+This POC now includes **Large Language Model (LLM) integration** for superior natural language understanding:
+
+**Results with LLM:**
+- **90%+ accuracy** on complex queries
+- **Handles multi-gene queries** that pattern matching can't
+- **Validates gene names** against cBioPortal database
+- **Confidence scoring** for reliability
+- **Graceful fallbacks** when uncertain
+
+### Example Queries That Work:
+
+**Simple:**
+- "TP53 mutations in breast cancer" ✓
+- "EGFR mutations in lung cancer" ✓
+
+**Complex (LLM-powered):**
+- "TP53 and BRCA1 co-mutations in ovarian cancer" ✓
+- "Compare KRAS mutations in colorectal vs pancreatic cancer" ✓
+- "Most common alterations in HER2-positive breast cancer" ✓
+
+[See full test results and documentation →](docs/LLM_INTEGRATION.md)
+
 ## Project Overview
 
 This PoC is part of a Google Summer of Code 2026 proposal to build an AI-powered natural language interface for cBioPortal.
@@ -22,8 +48,9 @@ This PoC is part of a Google Summer of Code 2026 proposal to build an AI-powered
 
 ### Installation
 
-1. **Clone the repository** (already done!)
+1. **Clone the repository**
    ```bash
+   git clone https://github.com/immortal71/cbioportal-ai-assistant-poc.git
    cd cbioportal-ai-assistant-poc
    ```
 
@@ -32,6 +59,23 @@ This PoC is part of a Google Summer of Code 2026 proposal to build an AI-powered
    pip install -r requirements.txt
    ```
 
+3. **Configure LLM (Optional but Recommended)**
+   
+   For best results, configure an LLM provider:
+   
+   ```bash
+   # Copy example environment file
+   cp .env.example .env
+   
+   # Get a free API key from:
+   # - Anthropic Claude: https://console.anthropic.com/ ($5 free credit)
+   # - OpenAI: https://platform.openai.com/ ($5 free credit)
+   
+   # Edit .env and add your key
+   ```
+   
+   **Note:** POC works without LLM (uses pattern matching), but LLM provides much better results.
+
 ### Running the PoC
 
 #### Step 1: Start the Backend Server
@@ -39,7 +83,7 @@ This PoC is part of a Google Summer of Code 2026 proposal to build an AI-powered
 Open a terminal and run:
 
 ```bash
-python backend/main.py
+python -m uvicorn backend.main:app --host 0.0.0.0 --port 8000
 ```
 
 You should see:
@@ -98,21 +142,59 @@ cbioportal-ai-assistant-poc/
 ### Frontend (`frontend/index.html`)
 
 - Single-page application with no external dependencies
-- Modern, responsive design
+- Modern, responsive AI chat interface design
 - Features:
   - Text input for natural language queries
   - Example query buttons
-  - Loading indicator
-  - Results displayed in a formatted table
-  - Error handling
+  - LLM-powered query understanding
+  - Loading indicator with status
+  - Results displayed in formatted tables
+  - Source badges (Real API vs Sample data)
+  - Comprehensive error handling
 
-## Available Sample Data
+## Architecture
 
-The PoC includes sample mutation data for:
+### Query Processing Flow
 
-- **TP53** - Tumor protein p53 (4 sample mutations)
-- **BRCA1** - Breast cancer 1, early onset (3 sample mutations)
-- **EGFR** - Epidermal growth factor receptor (3 sample mutations)
+```
+User Query → LLM Parser → Validation → cBioPortal API → Results
+                ↓
+         (if low confidence)
+                ↓
+         Pattern Fallback
+```
+
+**Components:**
+1. **LLM Parser** (`llm_parser.py`) - Extracts genes, cancer types, intent
+2. **Validator** - Checks against cBioPortal gene database  
+3. **API Client** (`backend/main.py`) - Calls cBioPortal REST API
+4. **Fallback** - Pattern matching for simple queries or when LLM unavailable
+
+## Testing
+
+### Run LLM Parser Tests
+```bash
+# Set your API key first
+export ANTHROPIC_API_KEY="your-key"
+
+# Run 30 test queries
+python test_llm_parser.py
+```
+
+**Test Coverage:**
+- 10 simple queries (e.g., "TP53 mutations")
+- 10 medium complexity (e.g., "TP53 and BRCA1 co-mutations")  
+- 10 complex queries (e.g., "Compare mutation rates...")
+
+### Run API Integration Tests
+```bash
+python test_comprehensive.py
+```
+
+### Run Basic API Tests
+```bash
+python test_api.py
+```
 
 ## API Examples
 

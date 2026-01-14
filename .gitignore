@@ -50,4 +50,14 @@ Thumbs.db
 htmlcov/
 
 # Environment variables
-.env
+.env.env.local
+.env.*.local
+
+# Test results
+tests/test_results.json
+tests/*.log
+
+# Project specific
+*.db
+*.sqlite
+*.sqlite3

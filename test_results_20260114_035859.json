@@ -1,0 +1,961 @@
+{
+  "test_date": "2026-01-14T03:58:59.451467",
+  "summary": {
+    "simple": {
+      "total": 3,
+      "passed": 3,
+      "failed": 0
+    },
+    "medium": {
+      "total": 2,
+      "passed": 0,
+      "failed": 2
+    },
+    "complex": {
+      "total": 2,
+      "passed": 0,
+      "failed": 2
+    },
+    "edge_cases": {
+      "total": 3,
+      "passed": 0,
+      "failed": 3
+    }
+  },
+  "results": {
+    "simple": [
+      {
+        "query": "TP53 mutations in breast cancer",
+        "passed": true,
+        "expected": {
+          "genes": [
+            "TP53"
+          ],
+          "cancer_type": "breast",
+          "query_type": "mutations"
+        },
+        "actual": {
+          "gene": "TP53",
+          "cancer_type": "breast",
+          "status": "success",
+          "llm_used": false,
+          "confidence": 0
+        },
+        "details": "\u2713 Gene: TP53 | \u2713 Cancer type: breast | \u2713 Query successful",
+        "response": {
+          "status": "success",
+          "query": "TP53 mutations in breast cancer",
+          "parsed_query": {
+            "query_type": "gene_mutations",
+            "gene": "TP53",
+            "status": "success",
+            "llm_used": false,
+            "confidence": 0,
+            "cancer_type": "breast"
+          },
+          "gene": "TP53",
+          "description": "Mutations from cBioPortal (brca_tcga)",
+          "mutations": [
+            {
+              "sample_id": "TCGA-A1-A0SI-01",
+              "mutation": "R175H",
+              "type": "Missense",
+              "cancer_type": "Brca Tcga",
+              "chromosome": "17",
+              "position": 7578406,
+              "ref_allele": "C",
+              "var_allele": "T"
+            },
+            {
+              "sample_id": "TCGA-A1-A0SK-01",
+              "mutation": "M133K",
+              "type": "Missense",
+              "cancer_type": "Brca Tcga",
+              "chromosome": "17",
+              "position": 7578532,
+              "ref_allele": "A",
+              "var_allele": "T"
+            },
+            {
+              "sample_id": "TCGA-A1-A0SP-01",
+              "mutation": "S183*",
+              "type": "Truncating",
+              "cancer_type": "Brca Tcga",
+              "chromosome": "17",
+              "position": 7578382,
+              "ref_allele": "G",
+              "var_allele": "C"
+            },
+            {
+              "sample_id": "TCGA-A2-A04P-01",
+              "mutation": "G108Vfs*15",
+              "type": "Frameshift",
+              "cancer_type": "Brca Tcga",
+              "chromosome": "17",
+              "position": 7579364,
+              "ref_allele": "C",
+              "var_allele": "-"
+            },
+            {
+              "sample_id": "TCGA-A2-A04T-01",
+              "mutation": "R273H",
+              "type": "Missense",
+              "cancer_type": "Brca Tcga",
+              "chromosome": "17",
+              "position": 7577120,
+              "ref_allele": "C",
+              "var_allele": "T"
+            },
+            {
+              "sample_id": "TCGA-A2-A04T-01",
+              "mutation": "D208G",
+              "type": "Missense",
+              "cancer_type": "Brca Tcga",
+              "chromosome": "17",
+              "position": 7578226,
+              "ref_allele": "T",
+              "var_allele": "C"
+            },
+            {
+              "sample_id": "TCGA-A2-A04U-01",
+              "mutation": "G108Vfs*15",
+              "type": "Frameshift",
+              "cancer_type": "Brca Tcga",
+              "chromosome": "17",
+              "position": 7579364,
+              "ref_allele": "C",
+              "var_allele": "-"
+            },
+            {
+              "sample_id": "TCGA-A2-A04W-01",
+              "mutation": "V272M",
+              "type": "Missense",
+              "cancer_type": "Brca Tcga",
+              "chromosome": "17",
+              "position": 7577124,
+              "ref_allele": "C",
+              "var_allele": "T"
+            },
+            {
+              "sample_id": "TCGA-A2-A0CM-01",
+              "mutation": "E204Sfs*43",
+              "type": "Frameshift",
+              "cancer_type": "Brca Tcga",
+              "chromosome": "17",
+              "position": 7578239,
+              "ref_allele": "C",
+              "var_allele": "-"
+            },
+            {
+              "sample_id": "TCGA-A2-A0CW-01",
+              "mutation": "R196*",
+              "type": "Truncating",
+              "cancer_type": "Brca Tcga",
+              "chromosome": "17",
+              "position": 7578263,
+              "ref_allele": "G",
+              "var_allele": "A"
+            },
+            {
+              "sample_id": "TCGA-A2-A0D0-01",
+              "mutation": "R196*",
+              "type": "Truncating",
+              "cancer_type": "Brca Tcga",
+              "chromosome": "17",
+              "position": 7578263,
+              "ref_allele": "G",
+              "var_allele": "A"
+            },
+            {
+              "sample_id": "TCGA-A2-A0D1-01",
+              "mutation": "Q331*",
+              "type": "Truncating",
+              "cancer_type": "Brca Tcga",
+              "chromosome": "17",
+              "position": 7576855,
+              "ref_allele": "G",
+              "var_allele": "A"
+            },
+            {
+              "sample_id": "TCGA-A2-A0EQ-01",
+              "mutation": "I162_Y163delinsN",
+              "type": "In-frame",
+              "cancer_type": "Brca Tcga",
+              "chromosome": "17",
+              "position": 7578443,
+              "ref_allele": "AGA",
+              "var_allele": "-"
+            },
+            {
+              "sample_id": "TCGA-A2-A0EY-01",
+              "mutation": "Y234C",
+              "type": "Missense",
+              "cancer_type": "Brca Tcga",
+              "chromosome": "17",
+              "position": 7577580,
+              "ref_allele": "T",
+              "var_allele": "C"
+            },
+            {
+              "sample_id": "TCGA-A2-A0SV-01",
+              "mutation": "F113_H115del",
+              "type": "In-frame",
+              "cancer_type": "Brca Tcga",
+              "chromosome": "17",
+              "position": 7579343,
+              "ref_allele": "TGCAAGAAG",
+              "var_allele": "-"
+            },
+            {
+              "sample_id": "TCGA-A2-A0SW-01",
+              "mutation": "R273C",
+              "type": "Missense",
+              "cancer_type": "Brca Tcga",
+              "chromosome": "17",
+              "position": 7577121,
+              "ref_allele": "G",
+              "var_allele": "A"
+            },
+            {
+              "sample_id": "TCGA-A2-A0SX-01",
+              "mutation": "G199V",
+              "type": "Missense",
+              "cancer_type": "Brca Tcga",
+              "chromosome": "17",
+              "position": 7578253,
+              "ref_allele": "C",
+              "var_allele": "A"
+            },
+            {
+              "sample_id": "TCGA-A2-A0T1-01",
+              "mutation": "R273C",
+              "type": "Missense",
+              "cancer_type": "Brca Tcga",
+              "chromosome": "17",
+              "position": 7577121,
+              "ref_allele": "G",
+              "var_allele": "A"
+            },
+            {
+              "sample_id": "TCGA-A2-A0T2-01",
+              "mutation": "Y220C",
+              "type": "Missense",
+              "cancer_type": "Brca Tcga",
+              "chromosome": "17",
+              "position": 7578190,
+              "ref_allele": "T",
+              "var_allele": "C"
+            },
+            {
+              "sample_id": "TCGA-A2-A0YE-01",
+              "mutation": "I162Tfs*8",
+              "type": "Frameshift",
+              "cancer_type": "Brca Tcga",
+              "chromosome": "17",
+              "position": 7578445,
+              "ref_allele": "A",
+              "var_allele": "-"
+            },
+            {
+              "sample_id": "TCGA-A2-A0YG-01",
+              "mutation": "X125_splice",
+              "type": "Splice",
+              "cancer_type": "Brca Tcga",
+              "chromosome": "17",
+              "position": 7579311,
+              "ref_allele": "C",
+              "var_allele": "A"
+            },
+            {
+              "sample_id": "TCGA-A2-A0YH-01",
+              "mutation": "P278L",
+              "type": "Missense",
+              "cancer_type": "Brca Tcga",
+              "chromosome": "17",
+              "position": 7577105,
+              "ref_allele": "G",
+              "var_allele": "A"
+            },
+            {
+              "sample_id": "TCGA-A2-A0YJ-01",
+              "mutation": "R342*",
+              "type": "Truncating",
+              "cancer_type": "Brca Tcga",
+              "chromosome": "17",
+              "position": 7574003,
+              "ref_allele": "G",
+              "var_allele": "A"
+            },
+            {
+              "sample_id": "TCGA-A2-A0YM-01",
+              "mutation": "R333Vfs*12",
+              "type": "Frameshift",
+              "cancer_type": "Brca Tcga",
+              "chromosome": "17",
+              "position": 7574030,
+              "ref_allele": "G",
+              "var_allele": "-"
+            },
+            {
+              "sample_id": "TCGA-A2-A0YT-01",
+              "mutation": "I255S",
+              "type": "Missense",
+              "cancer_type": "Brca Tcga",
+              "chromosome": "17",
+              "position": 7577517,
+              "ref_allele": "A",
+              "var_allele": "C"
+            },
+            {
+              "sample_id": "TCGA-A2-A1G1-01",
+              "mutation": "X225_splice",
+              "type": "Splice",
+              "cancer_type": "Brca Tcga",
+              "chromosome": "17",
+              "position": 7577609,
+              "ref_allele": "C",
+              "var_allele": "T"
+            },
+            {
+              "sample_id": "TCGA-A2-A3XS-01",
+              "mutation": "C242Afs*5",
+              "type": "Frameshift",
+              "cancer_type": "Brca Tcga",
+              "chromosome": "17",
+              "position": 7577558,
+              "ref_allele": "G",
+              "var_allele": "-"
+            },
+            {
+              "sample_id": "TCGA-A2-A3XT-01",
+              "mutation": "C135R",
+              "type": "Missense",
+              "cancer_type": "Brca Tcga",
+              "chromosome": "17",
+              "position": 7578527,
+              "ref_allele": "A",
+              "var_allele": "G"
+            },
+            {
+              "sample_id": "TCGA-A2-A3XV-01",
+              "mutation": "C135F",
+              "type": "Missense",
+              "cancer_type": "Brca Tcga",
+              "chromosome": "17",
+              "position": 7578526,
+              "ref_allele": "C",
+              "var_allele": "A"
+            },
+            {
+              "sample_id": "TCGA-A2-A3XX-01",
+              "mutation": "L111P",
+              "type": "Missense",
+              "cancer_type": "Brca Tcga",
+              "chromosome": "17",
+              "position": 7579355,
+              "ref_allele": "A",
+              "var_allele": "G"
+            }
+          ],
+          "count": 30,
+          "total_in_study": 304,
+          "study_id": "brca_tcga",
+          "source": "cBioPortal API"
+        }
+      },
+      {
+        "query": "EGFR in lung cancer",
+        "passed": true,
+        "expected": {
+          "genes": [
+            "EGFR"
+          ],
+          "cancer_type": "lung",
+          "query_type": "mutations"
+        },
+        "actual": {
+          "gene": "EGFR",
+          "cancer_type": "lung",
+          "status": "success",
+          "llm_used": false,
+          "confidence": 0
+        },
+        "details": "\u2713 Gene: EGFR | \u2713 Cancer type: lung | \u2713 Query successful",
+        "response": {
+          "status": "success",
+          "query": "EGFR in lung cancer",
+          "parsed_query": {
+            "query_type": "gene_mutations",
+            "gene": "EGFR",
+            "status": "success",
+            "llm_used": false,
+            "confidence": 0,
+            "cancer_type": "lung"
+          },
+          "gene": "EGFR",
+          "description": "Mutations from cBioPortal (luad_tcga)",
+          "mutations": [
+            {
+              "sample_id": "TCGA-05-4382-01",
+              "mutation": "R222L",
+              "type": "Missense",
+              "cancer_type": "Luad Tcga",
+              "chromosome": "7",
+              "position": 55220275,
+              "ref_allele": "G",
+              "var_allele": "T"
+            },
+            {
+              "sample_id": "TCGA-05-4382-01",
+              "mutation": "E545Q",
+              "type": "Missense",
+              "cancer_type": "Luad Tcga",
+              "chromosome": "7",
+              "position": 55231427,
+              "ref_allele": "G",
+              "var_allele": "C"
+            },
+            {
+              "sample_id": "TCGA-05-4402-01",
+              "mutation": "T751_E758del",
+              "type": "In-frame",
+              "cancer_type": "Luad Tcga",
+              "chromosome": "7",
+              "position": 55242480,
+              "ref_allele": "AACATCTCCGAAAGCCAACAAGGA",
+              "var_allele": "-"
+            },
+            {
+              "sample_id": "TCGA-05-4410-01",
+              "mutation": "R377S",
+              "type": "Missense",
+              "cancer_type": "Luad Tcga",
+              "chromosome": "7",
+              "position": 55224350,
+              "ref_allele": "G",
+              "var_allele": "T"
+            },
+            {
+              "sample_id": "TCGA-05-5423-01",
+              "mutation": "L861Q",
+              "type": "Missense",
+              "cancer_type": "Luad Tcga",
+              "chromosome": "7",
+              "position": 55259524,
+              "ref_allele": "T",
+              "var_allele": "A"
+            },
+            {
+              "sample_id": "TCGA-05-5423-01",
+              "mutation": "L833F",
+              "type": "Missense",
+              "cancer_type": "Luad Tcga",
+              "chromosome": "7",
+              "position": 55259441,
+              "ref_allele": "G",
+              "var_allele": "T"
+            },
+            {
+              "sample_id": "TCGA-38-4627-01",
+              "mutation": "L858R",
+              "type": "Missense",
+              "cancer_type": "Luad Tcga",
+              "chromosome": "7",
+              "position": 55259515,
+              "ref_allele": "T",
+              "var_allele": "G"
+            },
+            {
+              "sample_id": "TCGA-38-4627-01",
+              "mutation": "L62R",
+              "type": "Missense",
+              "cancer_type": "Luad Tcga",
+              "chromosome": "7",
+              "position": 55210075,
+              "ref_allele": "T",
+              "var_allele": "G"
+            },
+            {
+              "sample_id": "TCGA-38-4628-01",
+              "mutation": "E746_A750del",
+              "type": "In-frame",
+              "cancer_type": "Luad Tcga",
+              "chromosome": "7",
+              "position": 55242465,
+              "ref_allele": "GGAATTAAGAGAAGC",
+              "var_allele": "-"
+            },
+            {
+              "sample_id": "TCGA-38-6178-01",
+              "mutation": "E746_A750del",
+              "type": "In-frame",
+              "cancer_type": "Luad Tcga",
+              "chromosome": "7",
+              "position": 55242465,
+              "ref_allele": "GGAATTAAGAGAAGC",
+              "var_allele": "-"
+            },
+            {
+              "sample_id": "TCGA-44-2661-01",
+              "mutation": "E746_A750del",
+              "type": "In-frame",
+              "cancer_type": "Luad Tcga",
+              "chromosome": "7",
+              "position": 55242465,
+              "ref_allele": "GGAATTAAGAGAAGC",
+              "var_allele": "-"
+            },
+            {
+              "sample_id": "TCGA-44-6147-01",
+              "mutation": "S768I",
+              "type": "Missense",
+              "cancer_type": "Luad Tcga",
+              "chromosome": "7",
+              "position": 55249005,
+              "ref_allele": "G",
+              "var_allele": "T"
+            },
+            {
+              "sample_id": "TCGA-44-6147-01",
+              "mutation": "V769L",
+              "type": "Missense",
+              "cancer_type": "Luad Tcga",
+              "chromosome": "7",
+              "position": 55249007,
+              "ref_allele": "G",
+              "var_allele": "T"
+            },
+            {
+              "sample_id": "TCGA-49-4490-01",
+              "mutation": "L858R",
+              "type": "Missense",
+              "cancer_type": "Luad Tcga",
+              "chromosome": "7",
+              "position": 55259515,
+              "ref_allele": "T",
+              "var_allele": "G"
+            },
+            {
+              "sample_id": "TCGA-49-4494-01",
+              "mutation": "T790M",
+              "type": "Missense",
+              "cancer_type": "Luad Tcga",
+              "chromosome": "7",
+              "position": 55249071,
+              "ref_allele": "C",
+              "var_allele": "T"
+            },
+            {
+              "sample_id": "TCGA-49-4494-01",
+              "mutation": "L858R",
+              "type": "Missense",
+              "cancer_type": "Luad Tcga",
+              "chromosome": "7",
+              "position": 55259515,
+              "ref_allele": "T",
+              "var_allele": "G"
+            },
+            {
+              "sample_id": "TCGA-49-4501-01",
+              "mutation": "E746_A750del",
+              "type": "In-frame",
+              "cancer_type": "Luad Tcga",
+              "chromosome": "7",
+              "position": 55242466,
+              "ref_allele": "GAATTAAGAGAAGCA",
+              "var_allele": "-"
+            },
+            {
+              "sample_id": "TCGA-50-5944-01",
+              "mutation": "L858R",
+              "type": "Missense",
+              "cancer_type": "Luad Tcga",
+              "chromosome": "7",
+              "position": 55259515,
+              "ref_allele": "T",
+              "var_allele": "G"
+            },
+            {
+              "sample_id": "TCGA-50-6595-01",
+              "mutation": "G719A",
+              "type": "Missense",
+              "cancer_type": "Luad Tcga",
+              "chromosome": "7",
+              "position": 55241708,
+              "ref_allele": "G",
+              "var_allele": "C"
+            },
+            {
+              "sample_id": "TCGA-50-6595-01",
+              "mutation": "S768I",
+              "type": "Missense",
+              "cancer_type": "Luad Tcga",
+              "chromosome": "7",
+              "position": 55249005,
+              "ref_allele": "G",
+              "var_allele": "T"
+            },
+            {
+              "sample_id": "TCGA-50-6673-01",
+              "mutation": "H773dup",
+              "type": "In-frame",
+              "cancer_type": "Luad Tcga",
+              "chromosome": "7",
+              "position": 55249017,
+              "ref_allele": "-",
+              "var_allele": "CCA"
+            },
+            {
+              "sample_id": "TCGA-55-6980-01",
+              "mutation": "E709_T710delinsD",
+              "type": "In-frame",
+              "cancer_type": "Luad Tcga",
+              "chromosome": "7",
+              "position": 55241679,
+              "ref_allele": "AAC",
+              "var_allele": "-"
+            },
+            {
+              "sample_id": "TCGA-55-6981-01",
+              "mutation": "L747_T751del",
+              "type": "In-frame",
+              "cancer_type": "Luad Tcga",
+              "chromosome": "7",
+              "position": 55242468,
+              "ref_allele": "ATTAAGAGAAGCAAC",
+              "var_allele": "-"
+            },
+            {
+              "sample_id": "TCGA-55-7573-01",
+              "mutation": "L747_E749del",
+              "type": "In-frame",
+              "cancer_type": "Luad Tcga",
+              "chromosome": "7",
+              "position": 55242466,
+              "ref_allele": "GAATTAAGA",
+              "var_allele": "-"
+            },
+            {
+              "sample_id": "TCGA-55-7573-01",
+              "mutation": "K754E",
+              "type": "Missense",
+              "cancer_type": "Luad Tcga",
+              "chromosome": "7",
+              "position": 55242490,
+              "ref_allele": "A",
+              "var_allele": "G"
+            },
+            {
+              "sample_id": "TCGA-64-1681-01",
+              "mutation": "L858R",
+              "type": "Missense",
+              "cancer_type": "Luad Tcga",
+              "chromosome": "7",
+              "position": 55259515,
+              "ref_allele": "T",
+              "var_allele": "G"
+            },
+            {
+              "sample_id": "TCGA-67-3772-01",
+              "mutation": "L858R",
+              "type": "Missense",
+              "cancer_type": "Luad Tcga",
+              "chromosome": "7",
+              "position": 55259515,
+              "ref_allele": "T",
+              "var_allele": "G"
+            },
+            {
+              "sample_id": "TCGA-67-6217-01",
+              "mutation": "L858R",
+              "type": "Missense",
+              "cancer_type": "Luad Tcga",
+              "chromosome": "7",
+              "position": 55259515,
+              "ref_allele": "T",
+              "var_allele": "G"
+            },
+            {
+              "sample_id": "TCGA-69-7760-01",
+              "mutation": "E709_T710delinsD",
+              "type": "In-frame",
+              "cancer_type": "Luad Tcga",
+              "chromosome": "7",
+              "position": 55241679,
+              "ref_allele": "AAC",
+              "var_allele": "-"
+            },
+            {
+              "sample_id": "TCGA-69-7765-01",
+              "mutation": "Q486*",
+              "type": "Truncating",
+              "cancer_type": "Luad Tcga",
+              "chromosome": "7",
+              "position": 55227989,
+              "ref_allele": "C",
+              "var_allele": "T"
+            }
+          ],
+          "count": 30,
+          "total_in_study": 45,
+          "study_id": "luad_tcga",
+          "source": "cBioPortal API"
+        }
+      },
+      {
+        "query": "BRCA1 mutations",
+        "passed": true,
+        "expected": {
+          "genes": [
+            "BRCA1"
+          ],
+          "query_type": "mutations"
+        },
+        "actual": {
+          "gene": "BRCA1",
+          "cancer_type": "breast",
+          "status": "success",
+          "llm_used": false,
+          "confidence": 0
+        },
+        "details": "\u2713 Gene: BRCA1 | \u2713 Query successful",
+        "response": {
+          "status": "success",
+          "query": "BRCA1 mutations",
+          "parsed_query": {
+            "query_type": "gene_mutations",
+            "gene": "BRCA1",
+            "status": "success",
+            "llm_used": false,
+            "confidence": 0,
+            "cancer_type": "breast"
+          },
+          "gene": "BRCA1",
+          "description": "Mutations from cBioPortal (brca_tcga)",
+          "mutations": [
+            {
+              "sample_id": "TCGA-A1-A0SI-01",
+              "mutation": "E9Q",
+              "type": "Missense",
+              "cancer_type": "Brca Tcga",
+              "chromosome": "17",
+              "position": 41276089,
+              "ref_allele": "C",
+              "var_allele": "G"
+            },
+            {
+              "sample_id": "TCGA-A2-A25B-01",
+              "mutation": "E720*",
+              "type": "Truncating",
+              "cancer_type": "Brca Tcga",
+              "chromosome": "17",
+              "position": 41245390,
+              "ref_allele": "C",
+              "var_allele": "A"
+            },
+            {
+              "sample_id": "TCGA-A2-A4S0-01",
+              "mutation": "K50T",
+              "type": "Missense",
+              "cancer_type": "Brca Tcga",
+              "chromosome": "17",
+              "position": 41258536,
+              "ref_allele": "T",
+              "var_allele": "G"
+            },
+            {
+              "sample_id": "TCGA-AN-A0XU-01",
+              "mutation": "G1788V",
+              "type": "Missense",
+              "cancer_type": "Brca Tcga",
+              "chromosome": "17",
+              "position": 41201181,
+              "ref_allele": "C",
+              "var_allele": "A"
+            },
+            {
+              "sample_id": "TCGA-AO-A1KR-01",
+              "mutation": "C644del",
+              "type": "In-frame",
+              "cancer_type": "Brca Tcga",
+              "chromosome": "17",
+              "position": 41245615,
+              "ref_allele": "AAC",
+              "var_allele": "-"
+            },
+            {
+              "sample_id": "TCGA-BH-A0WA-01",
+              "mutation": "X1559_splice",
+              "type": "Splice",
+              "cancer_type": "Brca Tcga",
+              "chromosome": "17",
+              "position": 41223256,
+              "ref_allele": "C",
+              "var_allele": "T"
+            },
+            {
+              "sample_id": "TCGA-C8-A12T-01",
+              "mutation": "D1344H",
+              "type": "Missense",
+              "cancer_type": "Brca Tcga",
+              "chromosome": "17",
+              "position": 41243518,
+              "ref_allele": "C",
+              "var_allele": "G"
+            },
+            {
+              "sample_id": "TCGA-D8-A27M-01",
+              "mutation": "P1614Qfs*19",
+              "type": "Frameshift",
+              "cancer_type": "Brca Tcga",
+              "chromosome": "17",
+              "position": 41223090,
+              "ref_allele": "G",
+              "var_allele": "-"
+            },
+            {
+              "sample_id": "TCGA-E2-A1L9-01",
+              "mutation": "S1027I",
+              "type": "Missense",
+              "cancer_type": "Brca Tcga",
+              "chromosome": "17",
+              "position": 41244468,
+              "ref_allele": "C",
+              "var_allele": "A"
+            },
+            {
+              "sample_id": "TCGA-E9-A1NC-01",
+              "mutation": "Q139*",
+              "type": "Truncating",
+              "cancer_type": "Brca Tcga",
+              "chromosome": "17",
+              "position": 41256165,
+              "ref_allele": "G",
+              "var_allele": "A"
+            },
+            {
+              "sample_id": "TCGA-EW-A2FR-01",
+              "mutation": "D366N",
+              "type": "Missense",
+              "cancer_type": "Brca Tcga",
+              "chromosome": "17",
+              "position": 41246452,
+              "ref_allele": "C",
+              "var_allele": "T"
+            },
+            {
+              "sample_id": "TCGA-LL-A5YP-01",
+              "mutation": "D96H",
+              "type": "Missense",
+              "cancer_type": "Brca Tcga",
+              "chromosome": "17",
+              "position": 41256900,
+              "ref_allele": "C",
+              "var_allele": "G"
+            },
+            {
+              "sample_id": "TCGA-PE-A5DE-01",
+              "mutation": "E1419K",
+              "type": "Missense",
+              "cancer_type": "Brca Tcga",
+              "chromosome": "17",
+              "position": 41234523,
+              "ref_allele": "C",
+              "var_allele": "T"
+            }
+          ],
+          "count": 13,
+          "total_in_study": 13,
+          "study_id": "brca_tcga",
+          "source": "cBioPortal API"
+        }
+      }
+    ],
+    "medium": [
+      {
+        "query": "TP53 and BRCA1 co-mutations in ovarian cancer",
+        "passed": false,
+        "expected": {
+          "genes": [
+            "TP53",
+            "BRCA1"
+          ],
+          "cancer_type": "ovarian"
+        },
+        "error": "",
+        "actual": null
+      },
+      {
+        "query": "KRAS mutation frequency in colorectal cancer",
+        "passed": false,
+        "expected": {
+          "genes": [
+            "KRAS"
+          ],
+          "cancer_type": "colorectal"
+        },
+        "error": "",
+        "actual": null
+      }
+    ],
+    "complex": [
+      {
+        "query": "What are the most common mutations in HER2-positive breast cancer?",
+        "passed": false,
+        "expected": {
+          "cancer_type": "breast"
+        },
+        "error": "",
+        "actual": null
+      },
+      {
+        "query": "Show me all TP53, BRCA1, and BRCA2 mutations across all cancer types",
+        "passed": false,
+        "expected": {
+          "genes": [
+            "TP53",
+            "BRCA1",
+            "BRCA2"
+          ]
+        },
+        "error": "",
+        "actual": null
+      }
+    ],
+    "edge_cases": [
+      {
+        "query": "TP53 mutaions",
+        "passed": false,
+        "expected": {
+          "genes": [
+            "TP53"
+          ]
+        },
+        "error": "",
+        "actual": null
+      },
+      {
+        "query": "Show me everything about BRAF",
+        "passed": false,
+        "expected": {
+          "genes": [
+            "BRAF"
+          ]
+        },
+        "error": "",
+        "actual": null
+      },
+      {
+        "query": "TP53",
+        "passed": false,
+        "expected": {
+          "genes": [
+            "TP53"
+          ]
+        },
+        "error": "",
+        "actual": null
+      }
+    ]
+  }
+}
